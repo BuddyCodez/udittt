@@ -1,0 +1,3 @@
+{
+  "extends": "@udittt/config/tsconfig.base.json"
+}
