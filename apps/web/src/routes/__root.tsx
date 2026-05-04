@@ -7,6 +7,9 @@ import { Toaster } from "@udittt/ui/components/sonner";
 import type { orpc } from "@/utils/orpc";
 
 import Header from "../components/header";
+import { LoadingSequence } from "../components/LoadingSequence";
+import { LiveStatus } from "../components/LiveStatus";
+import { MonologueProvider } from "../components/MonologueContext";
 
 import appCss from "../index.css?url";
 export interface RouterAppContext {
@@ -46,13 +49,19 @@ function RootDocument() {
         <HeadContent />
       </head>
       <body>
-        <div className="grid h-svh grid-rows-[auto_1fr]">
-          <Header />
-          <Outlet />
-        </div>
-        <Toaster richColors />
-        <TanStackRouterDevtools position="bottom-left" />
-        <ReactQueryDevtools position="bottom" buttonPosition="bottom-right" />
+        <MonologueProvider>
+          <LoadingSequence />
+          <div className="grid h-svh grid-rows-[auto_1fr] relative">
+            <Header />
+            <main className="relative z-10 w-full max-w-5xl mx-auto px-6 py-8">
+              <Outlet />
+            </main>
+          </div>
+          <LiveStatus />
+          <Toaster richColors />
+          <TanStackRouterDevtools position="bottom-left" />
+          <ReactQueryDevtools position="bottom" buttonPosition="bottom-right" />
+        </MonologueProvider>
         <Scripts />
       </body>
     </html>

@@ -67,6 +67,7 @@
         "@orpc/zod": "catalog:",
         "@udittt/env": "workspace:*",
         "dotenv": "catalog:",
+        "hono": "^4.12.16",
         "zod": "catalog:",
       },
       "devDependencies": {

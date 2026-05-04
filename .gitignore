@@ -49,3 +49,10 @@ coverage
 .cache
 tmp
 temp
+
+
+# agents and ai.
+.agents/*
+.agent/*
+.claude/*
+.cursor/*
