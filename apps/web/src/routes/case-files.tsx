@@ -1,41 +1,64 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { InnerThought } from "../components/MonologueContext";
 
 export const Route = createFileRoute("/case-files")({
+  head: () => ({
+    meta: [
+      { title: "Case Files | Extracted Problem-Solving Records" },
+      { name: "description", content: "Deep dives into architectural decisions, infrastructure overhauls, and specific problem resolutions by Udit Vegad." }
+    ]
+  }),
   component: CaseFilesComponent,
 });
 
 const CASES = [
   {
-    id: "OPS-2024-01",
-    name: "BuddyCodez Infrastructure",
+    id: "OPS-2024-CITY",
+    name: "CityHub",
     status: "RESOLVED",
-    problem: "Outdated routing and inefficient data fetching causing high latency. Users experienced significant delay during critical interactions.",
-    investigation: "Traced the payload lifecycle. Discovered monolithic endpoints were over-fetching by 400%. The client was blocking render until the entire payload was received. Unacceptable.",
-    solution: "Dissected the monolithic architecture. Implemented TanStack Start for precise, edge-ready rendering. Moved heavy lifting to a streamlined Hono backend with oRPC for strict type safety.",
-    outcome: "Zero-latency perceived load times. Payload size reduced by 75%. The system now operates smoothly under 10x the previous peak load."
+    problem: "Modern city communities exist across disconnected apps (WhatsApp, Google Forms, Meetup), making them hard to discover, manage, and sustain. This fragmentation leads to exclusion, burnout for organisers, and loss of civic engagement.",
+    investigation: "Community infrastructure is broken. A single admin controls access. Events and knowledge disappear with no persistent history. Needed a unified platform that acts as a hybrid of Discord, Meetup, and Civic Governance.",
+    solution: "Built a civic-tech platform using Next.js 14, Convex (real-time serverless DB), BetterAuth, and ShadCN Maps. Designed majority-voting governance, intent-based join requests, and an interactive activity memory map.",
+    outcome: "A Freemium digital foundation for local communities to be discoverable, democratic, and enduring. Real-time updates sync instantly under 500ms."
   },
   {
-    id: "OPS-2023-11",
-    name: "Discord Bot Automation",
+    id: "OPS-2024-KLAR",
+    name: "Klarheit",
     status: "ARCHIVED",
-    problem: "Manual moderation and utility processes were slowing down operations and increasing human error across multiple servers.",
-    investigation: "Analyzed recurring moderation patterns. Found that 90% of infractions followed a predictable sequence that could be codified. Human intervention was the bottleneck.",
-    solution: "Extracted core logic into automated, self-healing modules. Built a robust event-driven architecture using Discord.js, handling rate limits automatically and queuing events to prevent drops.",
-    outcome: "A silent background worker that handles 10,000+ events daily. Human moderation reduced by 95%."
+    problem: "Real-time financial fraud detection systems require absolute type-safety, low latency, and cinematic UI to monitor high-speed transaction streaming without failing or lagging.",
+    investigation: "Standard monolithic architectures create bottlenecks. High-speed data processing requires a robust streaming architecture capable of handling Kafka/RabbitMQ patterns seamlessly without compromising the client-side render.",
+    solution: "Engineered a high-performance monorepo using the Better-T-Stack: Bun + ElysiaJS backend with oRPC for end-to-end type safety, integrated with Next.js, Prisma, and Socket.io for live monitoring.",
+    outcome: "A 'Noir' fintech dashboard processing live transaction streaming with ultra-low latency. Absolute clarity in financial systems."
+  },
+  {
+    id: "OPS-2023-SKILL",
+    name: "SkillSwap",
+    status: "RESOLVED",
+    problem: "Lack of a peer-to-peer platform where users can reliably exchange skills with each other, limiting community-driven learning ecosystems and increasing the barrier to entry.",
+    investigation: "Needed a stack capable of handling real-time interactions, secure authentication, and complex relational data mapping between the skills offered and those requested by the community.",
+    solution: "Deployed a full-stack Next.js app leveraging tRPC for type-safe API boundaries, Pusher for real-time client communication, Prisma for robust database schemas, and BetterAuth for session management.",
+    outcome: "Established a scalable, real-time peer-to-peer skill exchange ecosystem."
+  },
+  {
+    id: "OPS-2023-CHAT",
+    name: "Private Chat",
+    status: "RESOLVED",
+    problem: "Need for a secure, ephemeral real-time chat application with room destruction and time-to-live (TTL) countdowns to ensure extreme privacy.",
+    investigation: "Investigated methods to handle real-time messaging with automatic room expiration. Needed immediate cleanup to guarantee message volatility without leaving database ghost records.",
+    solution: "Implemented real-time room creation, message handling, and automated room destruction logic with precise TTL countdown mechanisms.",
+    outcome: "A secure, real-time ephemeral communication environment where data simply ceases to exist post-countdown."
   }
 ];
 
 function CaseFilesComponent() {
   return (
-    <div className="space-y-12 animate-in fade-in slide-in-from-bottom-4 duration-700 max-w-4xl mx-auto">
+    <div className="space-y-12 animate-in fade-in slide-in-from-bottom-4 duration-700 max-w-7xl mx-auto pb-24 px-4 sm:px-0">
       <div className="border-b border-border/50 pb-6">
         <h1 className="text-3xl font-semibold tracking-tight text-foreground">
           / case-files
         </h1>
-        <InnerThought>
+        <p className="text-muted-foreground font-mono text-xs sm:text-sm mt-2">
           A record of past extractions. Every problem requires a specific tool.
-        </InnerThought>
+        </p>
       </div>
 
       <div className="space-y-16">
@@ -44,17 +67,20 @@ function CaseFilesComponent() {
             {/* The line connector */}
             <div className="absolute left-0 top-0 bottom-0 w-px bg-border/40 group-hover:bg-primary/50 transition-colors"></div>
             
-            <div className="pl-8 space-y-6">
-              <div className="flex items-center justify-between border-b border-border/30 pb-2">
-                <div className="flex items-center gap-4">
-                  <span className="font-mono text-primary text-xs tracking-widest bg-primary/10 px-2 py-1">
+            <div className="pl-6 sm:pl-8 space-y-6">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-border/30 pb-3 gap-3 sm:gap-0">
+                <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
+                  <span className="font-mono text-primary text-[10px] sm:text-xs tracking-widest bg-primary/10 px-2 py-1 self-start sm:self-auto">
                     {c.id}
                   </span>
-                  <h2 className="text-2xl font-medium text-foreground">
+                  <h2 className="text-xl sm:text-2xl font-medium text-foreground">
                     {c.name}
                   </h2>
                 </div>
-                <span className="font-mono text-[10px] uppercase text-muted-foreground tracking-widest">
+                <span className={`font-mono text-[9px] sm:text-[10px] uppercase px-2 py-0.5 rounded border tracking-widest self-start sm:self-auto ${
+                  c.status === 'RESOLVED' ? 'bg-green-500/10 text-green-500 border-green-500/20' :
+                  'bg-yellow-500/10 text-yellow-500 border-yellow-500/20'
+                }`}>
                   STATUS: {c.status}
                 </span>
               </div>
@@ -65,7 +91,7 @@ function CaseFilesComponent() {
                   <p className="text-foreground/80">{c.problem}</p>
                 </div>
                 
-                <div className="pl-4 border-l-2 border-border/30">
+                <div className="pl-4 border-l-2 border-border/30 group-hover:border-primary/30 transition-colors">
                   <h3 className="font-mono text-muted-foreground uppercase tracking-wider text-xs mb-2">2. Investigation</h3>
                   <p className="text-foreground/80 italic">{c.investigation}</p>
                 </div>
@@ -75,7 +101,7 @@ function CaseFilesComponent() {
                   <p className="text-foreground/80">{c.solution}</p>
                 </div>
 
-                <div className="bg-card/10 border border-border/30 p-4">
+                <div className="bg-card/5 border border-border/30 p-4 group-hover:border-primary/20 transition-colors">
                   <h3 className="font-mono text-primary uppercase tracking-wider text-xs mb-2">4. Outcome</h3>
                   <p className="text-foreground font-medium">{c.outcome}</p>
                 </div>

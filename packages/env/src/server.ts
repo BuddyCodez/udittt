@@ -6,6 +6,7 @@ export const env = createEnv({
   server: {
     CORS_ORIGIN: z.url(),
     NODE_ENV: z.enum(["development", "production", "test"]).default("development"),
+    DISCORD_WEBHOOK_URL: z.string(),
   },
   runtimeEnv: process.env,
   emptyStringAsUndefined: true,

@@ -4,33 +4,27 @@ import { useState } from "react";
 import { Menu, X } from "lucide-react";
 
 export default function Header() {
-  const { isMonologueActive, toggleMonologue } = useMonologue();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   
   const links = [
     { to: "/", label: "/ home" },
-    { to: "/case-files", label: "/ case-files" },
     { to: "/profile", label: "/ profile" },
+    { to: "/case-files", label: "/ case-files" },
     { to: "/lab", label: "/ lab" },
     { to: "/logs", label: "/ logs" }
   ] as const;
 
   return (
     <header className="sticky top-0 z-40 w-full bg-background/80 backdrop-blur-sm border-b border-border/40">
-      <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between px-4 sm:px-6 py-3 sm:py-4 gap-3 sm:gap-0">
+      <div className=" mx-auto flex flex-col sm:flex-row items-center justify-between px-7 sm:px-6 py-3 sm:py-4 gap-3 sm:gap-0">
         
         {/* Mobile Top Bar (Toggle + Menu Icon) */}
         <div className="w-full sm:w-auto flex justify-between items-center">
-          <button 
-            onClick={toggleMonologue}
-            className={`text-[10px] sm:text-xs font-mono px-2 sm:px-3 py-1 sm:py-1.5 rounded transition-all duration-300 ${
-              isMonologueActive 
-                ? "bg-primary/10 text-primary border border-primary/30" 
-                : "text-muted-foreground border border-transparent hover:text-foreground hover:border-border"
-            }`}
+          <Link to={"/"}
+          className="text-lg font-mono font-bold text-foreground"
           >
-            [ thoughts: {isMonologueActive ? "ON" : "OFF"} ]
-          </button>
+          Udit
+          </Link>
 
           <button 
             className="sm:hidden text-muted-foreground hover:text-foreground"

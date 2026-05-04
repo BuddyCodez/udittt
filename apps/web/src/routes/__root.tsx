@@ -28,10 +28,35 @@ export const Route = createRootRouteWithContext<RouterAppContext>()({
         content: "width=device-width, initial-scale=1",
       },
       {
-        title: "My App",
+        title: "Udit Vegad | Forensic Developer",
       },
+      {
+        name: "description",
+        content: "Portfolio of Udit Vegad. Building interactive web systems that solve real-world problems. Forensic precision in software development.",
+      },
+      {
+        property: "og:type",
+        content: "website",
+      },
+      {
+        property: "og:site_name",
+        content: "Udit Vegad",
+      },
+      {
+        name: "twitter:card",
+        content: "summary_large_image",
+      },
+      {
+        name: "theme-color",
+        content: "#09090b",
+      }
     ],
     links: [
+      {
+        rel: "icon",
+        href: "/favicon.svg",
+        type: "image/svg+xml",
+      },
       {
         rel: "stylesheet",
         href: appCss,
@@ -44,16 +69,18 @@ export const Route = createRootRouteWithContext<RouterAppContext>()({
 
 function RootDocument() {
   return (
-    <html lang="en" className="dark">
+    <html lang="en" className="dark overflow-x-hidden">
       <head>
         <HeadContent />
       </head>
-      <body>
+      <body className="overflow-x-hidden w-full max-w-[100vw]">
         <MonologueProvider>
           <LoadingSequence />
-          <div className="grid h-svh grid-rows-[auto_1fr] relative">
+          <div className="grid h-svh grid-rows-[auto_1fr] relative w-full max-w-[100vw] overflow-x-hidden">
+            {/* Grid background */}
+            <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_right,#ffffff0a_1px,transparent_1px),linear-gradient(to_bottom,#ffffff0a_1px,transparent_1px)] bg-[size:2rem_2rem] sm:bg-size-[4rem_4rem] mask-[radial-gradient(ellipse_100%_50%_at_50%_40%,#000_70%,transparent_100%)]"></div>
             <Header />
-            <main className="relative z-10 w-full max-w-5xl mx-auto px-6 py-8">
+            <main className="relative z-10 w-full max-w-[100vw] mx-auto px-4 sm:px-6 py-8 overflow-x-hidden">
               <Outlet />
             </main>
           </div>

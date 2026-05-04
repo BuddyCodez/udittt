@@ -1,4 +1,5 @@
 import { Hono } from "hono";
+import { env } from "@udittt/env/server";
 
 const app = new Hono().basePath("/api/hono");
 
@@ -54,6 +55,43 @@ app.get("/presence", async (c) => {
     status: "offline",
     activity: null
   });
+});
+
+app.post("/contact", async (c) => {
+  try {
+    const body = await c.req.json();
+    const message = body.message;
+    
+    if (!message) {
+      return c.json({ success: false, error: "No message provided" }, 400);
+    }
+
+    // Using the validated env from @udittt/env/server
+    const webhookUrl = env.DISCORD_WEBHOOK_URL;
+    
+    if (!webhookUrl) {
+      console.warn("DISCORD_WEBHOOK_URL is not set");
+      // Fallback for dev if not set
+      return c.json({ success: true, warning: "Webhook URL not configured, but received message." });
+    }
+
+    const res = await fetch(webhookUrl, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        content: `**New Contact Form Submission**\n\n\`\`\`\n${message}\n\`\`\``
+      })
+    });
+
+    if (res.ok) {
+      return c.json({ success: true });
+    } else {
+      throw new Error("Discord API rejected the payload");
+    }
+  } catch (e) {
+    console.error("Contact form error", e);
+    return c.json({ success: false, error: "Failed to send message" }, 500);
+  }
 });
 
 export type AppType = typeof app;
