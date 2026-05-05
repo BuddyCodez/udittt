@@ -4,7 +4,7 @@ import { useState } from "react";
 export const Route = createFileRoute("/logs")({
   head: () => ({
     meta: [
-      { title: "Logs | Raw Telemetry & Internal Monologue" },
+      { title: "Logs | Raw Telemetry" },
       { name: "description", content: "Raw thoughts and unfiltered telemetry of the development process. Failures, observations, and wins." }
     ]
   }),
@@ -79,7 +79,7 @@ function LogsComponent() {
            <span className="text-[10px] font-mono text-primary bg-primary/10 px-2 py-0.5 rounded border border-primary/20 mt-1">Raw telemetry</span>
         </div>
         <p className="text-muted-foreground font-mono text-xs sm:text-sm">
-           Unfiltered thoughts. The internal monologue of the system.
+           Unfiltered thoughts and system observations.
         </p>
       </div>
 
@@ -102,7 +102,7 @@ function LogsComponent() {
       <div className="space-y-8 font-mono text-sm">
         {filteredLogs.map((log, i) => (
           <div key={i} className="border-l-2 border-border/40 pl-4 py-1 relative group hover:border-primary/50 transition-colors">
-            <div className="absolute -left-[5px] top-1.5 w-2 h-2 rounded-full bg-border group-hover:bg-primary/50 transition-colors shadow-[0_0_8px_rgba(0,0,0,0)] group-hover:shadow-[0_0_8px_rgba(34,211,238,0.4)]"></div>
+            <div className="absolute left-[-5px] top-1.5 w-2 h-2 rounded-full bg-border group-hover:bg-primary/50 transition-colors shadow-[0_0_8px_rgba(0,0,0,0)] group-hover:shadow-[0_0_8px_rgba(34,211,238,0.4)]"></div>
             
             <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 mb-2">
               <span className="text-[10px] text-muted-foreground self-start sm:self-auto">[{log.date}]</span>

@@ -21,7 +21,11 @@
     "noUncheckedSideEffectImports": true,
     "paths": {
       "@/*": ["./src/*"],
-      "@udittt/ui/*": ["../../packages/ui/src/*"]
+      "@udittt/ui/*": ["../../packages/ui/src/*"],
+      "@udittt/api": ["../../packages/api/src/index.ts"],
+      "@udittt/api/*": ["../../packages/api/src/*"],
+      "@udittt/env": ["../../packages/env/src/index.ts"],
+      "@udittt/env/*": ["../../packages/env/src/*"]
     }
   }
 }

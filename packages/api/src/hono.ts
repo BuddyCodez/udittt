@@ -5,20 +5,57 @@ const app = new Hono().basePath("/api/hono");
 
 app.get("/spotify", async (c) => {
   try {
-    const res = await fetch("https://api.lanyard.rest/v1/users/480285300484997122");
-    const data = await res.json() as any;
+    const client_id = env.SPOTIFY_CLIENT_ID;
+    const client_secret = env.SPOTIFY_CLIENT_SECRET;
+    const refresh_token = env.SPOTIFY_REFRESH_TOKEN;
+
+    if (!client_id || !client_secret || !refresh_token) {
+      throw new Error("Missing Spotify credentials in env");
+    }
+
+    const basic = btoa(`${client_id}:${client_secret}`);
     
-    if (data.success && data.data.spotify) {
-      const spotify = data.data.spotify;
+    const tokenRes = await fetch("https://accounts.spotify.com/api/token", {
+      method: "POST",
+      headers: {
+        Authorization: `Basic ${basic}`,
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: new URLSearchParams({
+        grant_type: "refresh_token",
+        refresh_token,
+      }),
+    });
+
+    const tokenData = await tokenRes.json() as any;
+    
+    if (tokenData.access_token) {
+      const nowPlayingRes = await fetch("https://api.spotify.com/v1/me/player/currently-playing", {
+        headers: {
+          Authorization: `Bearer ${tokenData.access_token}`,
+        },
+      });
+
+      if (nowPlayingRes.status === 204 || nowPlayingRes.status > 400) {
+        return c.json({ isPlaying: false, song: null, artist: null, albumArt: null });
+      }
+
+      const song = await nowPlayingRes.json() as any;
+
+      if (song.item === null) {
+        return c.json({ isPlaying: false, song: null, artist: null, albumArt: null });
+      }
+
       return c.json({
-        isPlaying: true,
-        song: spotify.song,
-        artist: spotify.artist,
-        albumArt: spotify.album_art_url,
+        isPlaying: song.is_playing,
+        song: song.item.name,
+        artist: song.item.artists.map((a: any) => a.name).join(", "),
+        albumArt: song.item.album.images[0]?.url || null,
+        songUrl: song.item.external_urls?.spotify
       });
     }
   } catch (e) {
-    console.error("Lanyard spotify fetch error", e);
+    console.error("Spotify fetch error", e);
   }
 
   return c.json({

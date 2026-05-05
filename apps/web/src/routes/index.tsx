@@ -1,7 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { InnerThought, useMonologue } from "../components/MonologueContext";
 import { useState, useEffect } from "react";
-import { Folder, User, FlaskConical, Terminal } from "lucide-react";
+import { Folder, User, FlaskConical } from "lucide-react";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -49,7 +48,6 @@ const CASE_NOTES = [
 function HomeComponent() {
   const [subTextIndex, setSubTextIndex] = useState(0);
   const [noteIndex, setNoteIndex] = useState(0);
-  const { isMonologueActive } = useMonologue();
 
   const [message, setMessage] = useState("");
   const [isSending, setIsSending] = useState(false);
@@ -96,7 +94,7 @@ function HomeComponent() {
       {/* 1. HERO SECTION */}
       <div className="space-y-6 pt-8 sm:pt-12">
         <div className="relative">
-          <div className="absolute -left-4 sm:-left-6 top-3 w-1.5 sm:w-2 h-1.5 sm:h-2 bg-primary"></div>
+          <div className="absolute -left-4 top-3 w-1.5 sm:w-2 h-1.5 sm:h-2 bg-primary"></div>
           <h1 className="text-3xl sm:text-5xl font-semibold tracking-tight text-foreground mb-3 sm:mb-4">
             Hello, I'm Udit.
           </h1>
@@ -106,19 +104,9 @@ function HomeComponent() {
         </div>
 
         <div className="pt-4 sm:pt-6 min-h-12 border-l border-border/50 pl-4 ml-0.5 sm:ml-1 flex items-center relative transition-all duration-300">
-          {isMonologueActive ? (
-            <div className="bg-card/30 border border-border/30 px-4 py-3 rounded-sm relative overflow-hidden w-full">
-              <div className="absolute left-0 top-0 bottom-0 w-1 bg-primary/70"></div>
-              <p className="font-mono text-foreground/90 text-xs sm:text-sm tracking-wide">
-                <span className="text-primary font-bold mr-2">{"//"}</span>
-                This system could fail under load. Needs better handling.
-              </p>
-            </div>
-          ) : (
-            <p className="font-mono text-muted-foreground text-xs sm:text-sm tracking-wide">
-              <span className="text-primary mr-2">{'>'}</span>{SUB_TEXTS[subTextIndex]}<span className="animate-ping inline-block w-1.5 h-3 sm:h-4 bg-primary align-middle ml-1"></span>
-            </p>
-          )}
+          <p className="font-mono text-muted-foreground text-xs sm:text-sm tracking-wide">
+            <span className="text-primary mr-2">{'>'}</span>{SUB_TEXTS[subTextIndex]}<span className="animate-ping inline-block w-1.5 h-3 sm:h-4 bg-primary align-middle ml-1"></span>
+          </p>
         </div>
       </div>
 

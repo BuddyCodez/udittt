@@ -94,7 +94,7 @@ function ProfileComponent() {
         </div>
 
         <div className="text-sm leading-relaxed text-foreground/80 space-y-6 font-mono bg-card/5 border border-border/20 p-6 sm:p-8 rounded-sm relative">
-          <div className="absolute left-0 top-0 w-1 h-full bg-gradient-to-b from-primary/50 to-transparent"></div>
+          <div className="absolute left-0 top-0 w-1 h-full bg-linear-to-b from-primary/50 to-transparent"></div>
 
           <p>
             The mission began in 2018 when I first encountered the trinity of web development: HTML, CSS, and JavaScript. What started as curiosity in classroom experiments rapidly evolved into building interactive web experiences and engineering Discord bots. The digital battlefield called, and I answered.
@@ -106,7 +106,7 @@ function ProfileComponent() {
             Today, that initial curiosity has transformed into professional expertise. I've evolved from classroom experiments to deploying production-grade full-stack applications, specializing in interactive web systems that solve real-world problems. Every line of code is a step forward in the mission.
           </p>
 
-          <div className="border-l-2 border-primary/50 pl-4 py-3 mt-8 bg-background/50 border-y border-r border-border/20">
+          <div className="border-l-2 border-l-primary/50 pl-4 py-3 mt-8 bg-background/50 border-y border-y-border/20 border-r border-r-border/20">
             <p className="text-primary/90 font-mono text-xs sm:text-sm tracking-wide">
               {">>"} "From classroom experiments to professional deployments—every line of code tells the story of the mission."
             </p>

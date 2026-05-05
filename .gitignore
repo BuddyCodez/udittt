@@ -56,3 +56,7 @@ temp
 .agent/*
 .claude/*
 .cursor/*
+.vercel
+./apps/web/wrangler.jsonc
+
+./docs/*
